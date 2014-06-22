@@ -16,9 +16,9 @@ makeCacheMatrix <- function(inMatrix = matrix()) {
                 outMatrix <<- NULL
         }
         
-		get <- function() inMatrix			## create a sourceable object for get function to fetch the input matrix
-        setsolve <- function(solve) outMatrix <<- solve	## create a sourceable object to inverse the matrix using solve function and set it in cache
-        getsolve <- function() outMatrix	## create a sourceable object to fetch the matrix and get the output (inverse) matrix from the cache
+		get <- function() inMatrix			## create an object for get function to fetch the input matrix
+        setsolve <- function(solve) outMatrix <<- solve	## create an object to inverse the matrix using solve function and set it in cache
+        getsolve <- function() outMatrix	## create an object to fetch the matrix and get the output (inverse) matrix from the cache
         list(set = set, get = get,			## list all the functions defined with-in the function makeCacheMatrix
              setsolve = setsolve,
              getsolve = getsolve)
@@ -32,7 +32,7 @@ cacheSolve <- function(x, ...) {
         outMatrix <- x$getsolve()			## fetch the output (inverse) matrix from cache memory using the getsolve function
 		
         if(!is.null(outMatrix)) {			## return the inverse matrix, fetched from the cache, if it exists, for subsequent executions
-                message("getting cached matrix inverse")
+                message("Getting/Using the Matrix Inverse from the cache/memory")
                 return(outMatrix)
         }
 
