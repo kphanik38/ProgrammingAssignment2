@@ -9,18 +9,18 @@
 
 makeCacheMatrix <- function(inMatrix = matrix()) {
 
-	outMatrix <- NULL					## set the output matrix to null to clean-up earlier assignments
+	outMatrix <- NULL		## set the output matrix to null to clean-up earlier assignments
 
-	set <- function(y) {				## set the lexical scoping of the variables and cache them
+	set <- function(y) {	## set the lexical scoping of the variables and cache them
 			inMatrix <<- y
 			outMatrix <<- NULL
 	}
 
-	get <- function() inMatrix			## function to fetch the input matrix
+	get <- function() inMatrix	## function to fetch the input matrix
 	setsolve <- function(solve) outMatrix <<- solve	## use "solve" to inverse and set the matrix in cache
 	getsolve <- function() outMatrix	## fetch the inverse matrix from the cache
 
-	list(set = set, get = get,			## list all the functions defined with-in the function "makeCacheMatrix"
+	list(set = set, get = get,	## list all the functions defined with-in the function "makeCacheMatrix"
 			setsolve = setsolve,
 			getsolve = getsolve)
 }
@@ -31,17 +31,17 @@ makeCacheMatrix <- function(inMatrix = matrix()) {
 
 cacheSolve <- function(x, ...) {
 
-	outMatrix <- x$getsolve()			## fetch the output (inverse) matrix from cache memory, by "getsolve"
+	outMatrix <- x$getsolve()	## fetch the output (inverse) matrix from cache memory, by "getsolve"
 
-	if(!is.null(outMatrix)) {			## return the inverse matrix, from cache, if it exists
+	if(!is.null(outMatrix)) {	## return the inverse matrix, from cache, if it exists
 		message("Getting/Using the Matrix Inverse from the cache/memory")
 		return(outMatrix)
 	}
 
-	tempMatrix <- x$get()				## get the original matrix from cache 
+	tempMatrix <- x$get()		## get the original matrix from cache 
 	outMatrix <- solve(tempMatrix, ...)	## calculate the inverse of the matrix to ...
-	x$setsolve(outMatrix)				## (a) pin it to cache/memory by calling "setsolve" and
+	x$setsolve(outMatrix)		## (a) pin it to cache/memory by calling "setsolve" and
 
-	outMatrix							## (b) return it, for the first execution
+	outMatrix		## (b) return it, for the first execution
 }
 
